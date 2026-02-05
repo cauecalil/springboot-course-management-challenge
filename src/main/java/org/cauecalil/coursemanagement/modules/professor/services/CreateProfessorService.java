@@ -29,12 +29,12 @@ public class CreateProfessorService {
 
         professor = professorRepository.save(professor);
 
-        return new CreateProfessorResponseDTO(
-                professor.getId(),
-                professor.getName(),
-                professor.getEmail(),
-                professor.getCreatedAt(),
-                professor.getUpdatedAt()
-        );
+        return CreateProfessorResponseDTO.builder()
+                .id(professor.getId())
+                .name(professor.getName())
+                .email(professor.getEmail())
+                .createdAt(professor.getCreatedAt())
+                .updatedAt(professor.getUpdatedAt())
+                .build();
     }
 }
