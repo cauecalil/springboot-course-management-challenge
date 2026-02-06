@@ -33,6 +33,7 @@ public class CourseEntity {
     private String category;
 
     @NotNull
+    @Builder.Default
     private Boolean active = true;
 
     @ManyToOne(fetch = FetchType.LAZY)
