@@ -6,7 +6,6 @@ import org.cauecalil.coursemanagement.modules.professor.dtos.AuthProfessorReques
 import org.cauecalil.coursemanagement.modules.professor.dtos.AuthProfessorResponseDTO;
 import org.cauecalil.coursemanagement.modules.professor.repositories.ProfessorRepository;
 import org.cauecalil.coursemanagement.providers.JWTProvider;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -18,9 +17,6 @@ public class AuthProfessorService {
     private final ProfessorRepository professorRepository;
     private final PasswordEncoder passwordEncoder;
     private final JWTProvider jwtProvider;
-
-    @Value("${security.token.secret}")
-    private String secretKey;
 
     public AuthProfessorResponseDTO execute(AuthProfessorRequestDTO request) {
         var professor = professorRepository.findByEmail(request.email())
