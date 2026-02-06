@@ -24,10 +24,11 @@ public class CreateCourseService {
             throw new IllegalArgumentException("Course already exists");
         }
 
-        CourseEntity course = new CourseEntity();
-        course.setName(request.name());
-        course.setCategory(request.category());
-        course.setProfessor(professor);
+        CourseEntity course = CourseEntity.builder()
+                .name(request.name())
+                .category(request.category())
+                .professor(professor)
+                .build();
 
         CourseEntity savedCourse = courseRepository.save(course);
 

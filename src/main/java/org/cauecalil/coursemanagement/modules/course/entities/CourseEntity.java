@@ -12,6 +12,7 @@ import org.hibernate.validator.constraints.Length;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
+@Builder
 @Getter
 @Setter
 @NoArgsConstructor
