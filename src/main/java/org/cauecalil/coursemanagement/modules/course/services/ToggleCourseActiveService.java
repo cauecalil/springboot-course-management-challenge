@@ -17,7 +17,5 @@ public class ToggleCourseActiveService {
                 .orElseThrow(CourseNotFoundException::new);
 
         course.setActive(!course.getActive());
-
-        return courseRepository.save(course);
     }
 }
