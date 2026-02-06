@@ -1,6 +1,7 @@
 package org.cauecalil.coursemanagement.modules.course.services;
 
 import lombok.RequiredArgsConstructor;
+import org.cauecalil.coursemanagement.exceptions.domain.course.CourseNotFoundException;
 import org.cauecalil.coursemanagement.modules.course.repositories.CourseRepository;
 import org.springframework.stereotype.Service;
 
@@ -13,7 +14,7 @@ public class DeleteCourseService {
 
     public void execute(UUID id) {
         if (!courseRepository.existsById(id)) {
-            throw new IllegalArgumentException("Course not found");
+            throw new CourseNotFoundException();
         }
 
         courseRepository.deleteById(id);

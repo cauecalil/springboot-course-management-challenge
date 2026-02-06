@@ -1,6 +1,8 @@
 package org.cauecalil.coursemanagement.modules.course.services;
 
 import lombok.RequiredArgsConstructor;
+import org.cauecalil.coursemanagement.exceptions.domain.course.CourseNotFoundException;
+import org.cauecalil.coursemanagement.exceptions.domain.course.InvalidCourseUpdateException;
 import org.cauecalil.coursemanagement.modules.course.dtos.EditCourseRequestDTO;
 import org.cauecalil.coursemanagement.modules.course.dtos.EditCourseResponseDTO;
 import org.cauecalil.coursemanagement.modules.course.repositories.CourseRepository;
@@ -15,13 +17,13 @@ public class EditCourseService {
 
     public EditCourseResponseDTO execute(UUID id, EditCourseRequestDTO request) {
         var course = courseRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Course not found"));
+                .orElseThrow(CourseNotFoundException::new);
 
         boolean hasName = request.name() != null;
         boolean hasCategory = request.category() != null;
 
         if (hasName == hasCategory) {
-            throw new IllegalArgumentException("You must provide exactly one field: name or category");
+            throw new InvalidCourseUpdateException("You must provide exactly one field: name or category");
         }
 
         if (hasName) {

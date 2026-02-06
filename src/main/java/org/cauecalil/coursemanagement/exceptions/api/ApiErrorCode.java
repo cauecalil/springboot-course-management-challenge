@@ -1,0 +1,19 @@
+package org.cauecalil.coursemanagement.exceptions.api;
+
+public enum ApiErrorCode {
+    VALIDATION_ERROR,
+    BAD_REQUEST,
+    UNAUTHORIZED,
+    FORBIDDEN,
+    NOT_FOUND,
+    CONFLICT,
+    INTERNAL_SERVER_ERROR,
+
+    COURSE_NOT_FOUND,
+    COURSE_ALREADY_EXISTS,
+    INVALID_COURSE_UPDATE,
+
+    PROFESSOR_NOT_FOUND,
+    PROFESSOR_ALREADY_EXISTS,
+    INVALID_CREDENTIALS
+}

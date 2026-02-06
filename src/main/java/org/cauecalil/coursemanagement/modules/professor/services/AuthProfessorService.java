@@ -1,6 +1,7 @@
 package org.cauecalil.coursemanagement.modules.professor.services;
 
 import lombok.RequiredArgsConstructor;
+import org.cauecalil.coursemanagement.exceptions.domain.professor.InvalidCredentialsException;
 import org.cauecalil.coursemanagement.modules.professor.dtos.AuthProfessorRequestDTO;
 import org.cauecalil.coursemanagement.modules.professor.dtos.AuthProfessorResponseDTO;
 import org.cauecalil.coursemanagement.modules.professor.repositories.ProfessorRepository;
@@ -23,12 +24,12 @@ public class AuthProfessorService {
 
     public AuthProfessorResponseDTO execute(AuthProfessorRequestDTO request) {
         var professor = professorRepository.findByEmail(request.email())
-                .orElseThrow(() -> new IllegalArgumentException("Invalid credentials"));
+                .orElseThrow(InvalidCredentialsException::new);
 
         var passwordMatches = passwordEncoder.matches(request.password(), professor.getPassword());
 
         if (!passwordMatches) {
-            throw new IllegalArgumentException("Invalid credentials");
+            throw new InvalidCredentialsException();
         }
 
         var token = jwtProvider.generateToken(

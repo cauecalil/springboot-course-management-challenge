@@ -1,6 +1,7 @@
 package org.cauecalil.coursemanagement.modules.professor.services;
 
 import lombok.RequiredArgsConstructor;
+import org.cauecalil.coursemanagement.exceptions.domain.professor.ProfessorAlreadyExistsException;
 import org.cauecalil.coursemanagement.modules.professor.dtos.CreateProfessorRequestDTO;
 import org.cauecalil.coursemanagement.modules.professor.dtos.CreateProfessorResponseDTO;
 import org.cauecalil.coursemanagement.modules.professor.entities.ProfessorEntity;
@@ -16,7 +17,7 @@ public class CreateProfessorService {
 
     public CreateProfessorResponseDTO execute(CreateProfessorRequestDTO request) {
         if (professorRepository.existsByEmail(request.email())) {
-            throw new IllegalArgumentException("Professor already exists");
+            throw new ProfessorAlreadyExistsException();
         }
 
         var password = passwordEncoder.encode(request.password());

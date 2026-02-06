@@ -1,6 +1,8 @@
 package org.cauecalil.coursemanagement.modules.course.services;
 
 import lombok.RequiredArgsConstructor;
+import org.cauecalil.coursemanagement.exceptions.domain.course.CourseAlreadyExistsException;
+import org.cauecalil.coursemanagement.exceptions.domain.professor.ProfessorNotFoundException;
 import org.cauecalil.coursemanagement.modules.course.dtos.CreateCourseRequestDTO;
 import org.cauecalil.coursemanagement.modules.course.dtos.CreateCourseResponseDTO;
 import org.cauecalil.coursemanagement.modules.course.entities.CourseEntity;
@@ -18,10 +20,10 @@ public class CreateCourseService {
 
     public CreateCourseResponseDTO execute(CreateCourseRequestDTO request, UUID professorId) {
         var professor = professorRepository.findById(professorId)
-                .orElseThrow(() -> new IllegalArgumentException("Professor not found"));
+                .orElseThrow(ProfessorNotFoundException::new);
 
         if (courseRepository.existsByNameIgnoreCase(request.name())) {
-            throw new IllegalArgumentException("Course already exists");
+            throw new CourseAlreadyExistsException();
         }
 
         CourseEntity course = CourseEntity.builder()
