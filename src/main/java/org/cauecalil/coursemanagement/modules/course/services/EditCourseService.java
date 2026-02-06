@@ -32,13 +32,13 @@ public class EditCourseService {
 
         var savedCourse = courseRepository.save(course);
 
-        return new EditCourseResponseDTO(
-                savedCourse.getId(),
-                savedCourse.getName(),
-                savedCourse.getCategory(),
-                savedCourse.getActive(),
-                savedCourse.getCreatedAt(),
-                savedCourse.getUpdatedAt()
-        );
+        return EditCourseResponseDTO.builder()
+                .id(savedCourse.getId())
+                .name(savedCourse.getName())
+                .category(savedCourse.getCategory())
+                .active(savedCourse.getActive())
+                .createdAt(savedCourse.getCreatedAt())
+                .updatedAt(savedCourse.getUpdatedAt())
+                .build();
     }
 }
