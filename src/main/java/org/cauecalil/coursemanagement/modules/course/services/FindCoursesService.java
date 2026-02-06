@@ -16,15 +16,15 @@ public class FindCoursesService {
     public List<FindCoursesResponseDTO> execute(FindCoursesQueryDTO query) {
         var courses = courseRepository.findCourses(query.name(), query.category());
 
-        return courses.stream()
-                .map(course -> new FindCoursesResponseDTO(
-                    course.getId(),
-                    course.getName(),
-                    course.getCategory(),
-                    course.getActive(),
-                    course.getCreatedAt(),
-                    course.getUpdatedAt()
-                ))
-                .toList();
+        return courses.stream().map(course ->
+                FindCoursesResponseDTO.builder()
+                        .id(course.getId())
+                        .name(course.getName())
+                        .category(course.getCategory())
+                        .active(course.getActive())
+                        .createdAt(course.getCreatedAt())
+                        .updatedAt(course.getUpdatedAt())
+                        .build()
+        ).toList();
     }
 }
