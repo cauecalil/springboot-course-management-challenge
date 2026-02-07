@@ -129,9 +129,13 @@ public class CourseController {
             @PathVariable UUID id,
 
             @Parameter(description = "Updated course data", required = true)
-            @RequestBody @Valid EditCourseRequestDTO request
+            @RequestBody @Valid EditCourseRequestDTO request,
+
+            @Parameter(hidden = true)
+            @AuthenticationPrincipal String userId
     ) {
-        var result = editCourseService.execute(id, request);
+        UUID professorId = UUID.fromString(userId);
+        var result = editCourseService.execute(id, request, professorId);
         return ResponseEntity.ok(result);
     }
 
