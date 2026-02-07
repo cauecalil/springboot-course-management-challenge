@@ -191,9 +191,13 @@ public class CourseController {
     @ApiInternalServerErrorResponse
     public ResponseEntity<Void> toggleCourseActive(
             @Parameter(description = "Course ID to toggle status", required = true, example = "123e4567-e89b-12d3-a456-426614174000")
-            @PathVariable UUID id
+            @PathVariable UUID id,
+
+            @Parameter(hidden = true)
+            @AuthenticationPrincipal String userId
     ) {
-        toggleCourseActiveService.execute(id);
+        UUID professorId = UUID.fromString(userId);
+        toggleCourseActiveService.execute(id, professorId);
         return ResponseEntity.noContent().build();
     }
 }
